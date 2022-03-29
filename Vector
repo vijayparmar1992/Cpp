@@ -1,0 +1,70 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+void printVector(vector<int>& vChannel1)
+{
+	//Display vector
+	cout << "Displaying vector-Method1" << endl;
+	vector<int>::iterator itr;
+	for (itr = vChannel1.begin(); itr != vChannel1.end(); itr++)
+	{
+		cout << *itr << endl;
+	}
+}
+
+int main()
+{
+	vector<int> vChannel1 = { 12,23,45,56,12,45,34,56 };
+
+
+	cout << "Displaying vector-Method2" << endl;
+	for (auto channel_data : vChannel1)
+	{
+		cout << channel_data<<endl;
+	}
+	cout << "Displaying vector-Method3" << endl;
+	for (auto itr2 = vChannel1.begin(); itr2 != vChannel1.end(); itr2++)
+	{
+		cout << *itr2 << endl;
+	}
+	cout << "Display reverse vector" << endl;
+	vector<int>::iterator itr4;
+	for (auto itr3 = vChannel1.rbegin(); itr3 != vChannel1.rend(); itr3++)
+	{
+		cout << *itr3 << endl;
+	}
+
+	//access elements
+	cout << "Element at front " << vChannel1.front() << endl;
+	cout << "Element at end "<<vChannel1.back() << endl;
+	cout << "Element at 5th location " << vChannel1.at(5) << endl;
+
+	//replace element
+	itr4 = vChannel1.begin();
+	itr4 += 4;
+	*itr4 = 100;
+	vChannel1[2] = 1000;
+
+	//insert an element
+	//iterator is valid as previous operation was edit operation
+	vChannel1.insert(itr4,500);
+
+	//erase element
+	//iterator becomes in-valid when we inserted element, hence re-initialize
+	itr4 = vChannel1.begin();
+	itr4 += 4;
+	vChannel1.erase(itr4);
+	printVector(vChannel1);
+
+	cout << vChannel1.max_size() << endl;//max # of element can hold
+	cout << vChannel1.capacity() << endl;
+
+	vChannel1.resize(25);
+	printVector(vChannel1);
+	vChannel1.clear();
+	bool b = vChannel1.empty();
+
+
+	return 0;
+}
