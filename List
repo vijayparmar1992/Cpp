@@ -1,0 +1,49 @@
+#include<iostream>
+#include<list>
+
+using namespace std;
+
+void printList(list<int>& ls)
+{
+	cout << "printing list" << endl;
+	list<int>::iterator itr;
+	for (itr = ls.begin(); itr != ls.end(); itr++)
+	{
+		cout << *itr << endl;
+	}
+}
+
+int main()
+{
+	list<int> ls;
+	ls.push_back(10);
+	ls.push_back(11);
+	ls.push_front(100);
+	ls.push_front(1);
+	ls.push_front(12);
+	ls.push_back(40);
+	printList(ls);
+	//erase element
+	list<int>::iterator itrL;
+	itrL = ls.end();
+	itrL--;
+	ls.erase(itrL);
+	printList(ls);
+	//Random access is not possible
+	itrL = ls.begin();
+	itrL++;
+	itrL++;
+	itrL--;
+	//insert element
+	ls.insert(itrL, 5555);
+
+	advance(itrL, 2); // iterator to point to itrL+2 position
+	ls.insert(itrL, 8888);
+	//****Algortithms
+	//ls.assign(3, 2);// // creates 3 occurrences of "2"
+	//ls.reverse();
+	//ls.sort(greater<int>());
+	printList(ls);
+	return 0;
+
+}
