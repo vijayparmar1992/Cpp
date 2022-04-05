@@ -1,0 +1,48 @@
+#include<iostream>
+#include<map>
+using namespace std;
+template<class T>
+void printMap(T mmap)
+{
+	cout << "priniting map" << endl;
+	for (auto mitr : mmap)
+	{
+		cout << "name is " << mitr.first << " age is " << mitr.second << endl;
+	}
+}
+
+int main()
+{
+	map<string, int> mmap = { {"vijay",30},{"shweta",28},{"Dilip",33},{"Parth",25},{"shweta",30} };
+
+	mmap["vijay"] = 31;//edit current key
+	mmap["Ajay"] = 99; //Add new pair
+	printMap(mmap);
+	//**Add new pair
+	pair<string, int>p;
+	p.first = "NA";
+	p.second = 0;
+	mmap.insert(p);
+	printMap(mmap);
+	//**traverse through map
+	map<string, int>::iterator m_itr;
+	for (m_itr = mmap.begin(); m_itr != mmap.end(); m_itr++)
+	{
+		cout << m_itr->first << " : " << m_itr->second << endl;
+	}
+	//find/search map for given key or get value using key
+	string name = "Parth";
+	m_itr = mmap.find(name);
+	if(m_itr!=mmap.end())
+		cout << m_itr->first << " : " << m_itr->second << endl;
+	//erase element from map
+	mmap.erase("shweta"); //provide key
+	mmap.erase(mmap.begin()); //using iterator
+	mmap.erase(mmap.begin(),mmap.begin()++);//However map supports bidirectional iterator
+	printMap(mmap);
+
+
+
+	return 0;
+
+}
