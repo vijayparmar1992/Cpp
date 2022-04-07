@@ -1,0 +1,46 @@
+#include<iostream>
+#include<queue>
+
+using namespace std;
+void display(queue<int>& q)
+{
+	cout << "In disp" << endl;
+	//int firstElement=q.front();
+
+	while (!q.empty())
+	{
+		cout << q.front() << endl;
+		q.pop();
+
+	}
+}
+
+int main()
+{
+	queue<int> channel1;
+	channel1.push(12);
+	channel1.push(13);
+	channel1.push(4);
+	channel1.push(53);
+	channel1.emplace(5);
+
+	/*
+	emplace() is like in-place element structure in LabVIEW
+	While push() function inserts a copy of the value or the parameter passed to the function
+	into the container at the top, the emplace() function constructs a new element as the value of the parameter
+
+	std::stack<Point> shape; Point p{2,2};
+    shape.push(p);
+    shape.emplace(3,3,3);*/
+	channel1.push(7);
+	display(channel1);
+	//swap
+	queue<int> channel2;
+	channel2 = channel1; //This will not work
+
+	channel1.swap(channel2); /Both queuq should have same number of element
+
+	display(channel2);
+
+	return 0;
+}
