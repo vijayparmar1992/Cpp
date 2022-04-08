@@ -1,0 +1,38 @@
+#include<iostream>
+#include<exception>
+#include<strstream>//string stream
+using namespace std;
+
+class MyException:public exception
+{
+private:
+	string errMSg;
+public:
+	MyException(string message, int iteration) //here class name and method name should be same
+	{
+		ostrstream s;//output string stream
+		s << iteration<<ends; //insert null character \0 using ends.
+		errMSg = message + "," + " Iteration is" + s.str();
+	}
+	void what()
+	{
+		cout << errMSg << endl;
+	}
+
+};
+
+int main()
+{
+	int i = 12;
+	try
+	{
+		cout << "welcome to try" << endl;
+		throw MyException("This is error", 2);
+	}
+	catch(MyException& e)
+	{
+		e.what();
+	}
+	cout << "Afgter catch" << endl;
+	return 0;
+}
