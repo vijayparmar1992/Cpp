@@ -1,0 +1,31 @@
+/*Dequeue is LIFO operation*/
+#include<iostream>
+#include<string>
+#include<stack>
+#include<vector>
+
+using namespace std;
+
+void display(stack<int>& d)
+{
+	int element;
+	while (!d.empty())
+	{
+		element = d.top();//points to top element
+        cout << element << endl;
+		 d.pop(); //pop one element at a time
+
+	}
+}
+
+int main()
+{
+	stack<int> mydaq;
+	mydaq.push(45);
+	mydaq.push(12);
+	mydaq.push(45);
+	mydaq.push(678);
+	display(mydaq);
+
+	return 0;
+}
