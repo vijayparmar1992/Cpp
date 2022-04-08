@@ -1,0 +1,42 @@
+#include<iostream>
+//#include<stdexcept>//this is not require
+#include<exception>//to use exception class
+using namespace std;
+int main()
+{
+	try
+	{
+		int i = 12;
+		throw exception("Error at entrance"); //using exception class
+		i = i / 0; //This will automatically catch bad_alloc
+		throw i; //throw any integer value
+		throw runtime_error("File opening error");
+		cout << "welcome vijay" << endl;
+	}
+	catch(runtime_error& e)
+	{
+		cout << e.what() << endl;
+
+	}
+	catch (exception& e)
+	{
+		cout << e.what();
+	}
+	catch (bad_alloc& e)
+	{
+		cout << e.what() << endl;
+	}
+	catch (int& i)//catch integer value
+	{
+		cout << i << endl;
+	}
+	catch (...)//default catch
+	{
+		cout << "Default catch";
+	}
+	cout << "code after catch" << endl;
+
+	//another example
+	return 0;
+
+}
