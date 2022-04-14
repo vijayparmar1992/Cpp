@@ -1,0 +1,62 @@
+/*Quick sort algorithm*/
+#include<iostream>
+using namespace std;
+int split(int marks[], int lower, int uper)
+{
+	int pivotElement, p, q,temp;
+	pivotElement = marks[lower];
+	p = lower + 1;
+	q = uper;
+
+	while (q>=p)
+	{
+		//move from left to right till we found value greather than pivotElement
+		while (marks[p] < pivotElement)
+		{
+			p++;
+		}
+		//move from right to left till we found value less than pivotElement
+		while (marks[q] > pivotElement)
+		{
+			q--;
+		}
+
+
+		//exchange value if q is greather than p
+		if (q > p)
+		{
+			temp = marks[q];
+			marks[q] = marks[p];
+			marks[p] = temp;
+		}
+	}
+	//move pivotElement to center ,left element are smaller, right element are greater
+	temp = marks[lower];
+	marks[lower] = marks[q];
+	marks[q] = temp;
+	return q;
+
+}
+void quickSort(int marks[], int lower, int uper)
+{
+	int cIndex;
+	if (uper > lower)
+	{
+		cIndex =split(marks, lower, uper);
+		quickSort(marks, lower, cIndex -1); //left array
+		quickSort(marks, cIndex + 1, uper); //right array
+	}
+}
+
+
+int main()
+{
+	int size = 10;
+	int marks[10] = { 11,2,9,13,1,25,23,1,4,3 };
+	quickSort(marks, 0, size - 1);
+	for (int i = 0; i < size; i++)
+	{
+		cout << marks[i] << " ";
+	}
+	return 0;
+}
