@@ -1,0 +1,31 @@
+#include <iostream>
+#include <sstream>
+
+using namespace std;
+
+void printString(string& s)
+{
+	cout << s << endl;
+}
+
+void printInteger(int a)
+{
+	cout << a << endl;
+}
+int main()
+{
+	vector<string> myVect;
+	string name = "Hello,everyone,how,are,you ?";
+	string token;
+	istringstream stringSpace(name);
+
+	//Separate string by ,
+	while (getline(stringSpace, token, ','))
+		myVect.push_back(token);
+
+	for (string s : myVect)
+	{
+		cout << s << endl;
+	}
+
+}
