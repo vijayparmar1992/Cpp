@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+class Singleton
+ {
+ private:
+	 static Singleton* instance;
+	 int data;
+	 Singleton()
+	 {
+		 data = 1000;
+	 }
+ public:
+	static Singleton* getInstance()
+	 {
+		 if (instance == NULL)
+		 {
+			 instance = new Singleton;
+		 }
+		 else
+		 {
+			 cout << "Instace already exist" << endl;
+			 // Throw exception, if required
+		 }
+		 return instance;
+	 }
+	 int getData()
+	 {
+		 return data;
+	 }
+
+	 ~Singleton()
+	 {
+		 // For singleton, we don't care for DTor
+		 // As we expect life till the program finish
+
+	 }
+ };
+
+ Singleton* Singleton::instance = NULL;
+int main()
+{
+	Singleton* s = Singleton::getInstance();
+	cout << s->getData() << endl;
+
+	Singleton * b = b->getInstance();
+	cout << b->getData() << endl;
+
+	cin.get();
+	return 0;
+}
