@@ -1,0 +1,128 @@
+// This code explains basics of pointers
+
+#include <iostream>
+
+using namespace std;
+
+template <typename T>
+void printPtrValue(T *ptr)
+{
+	cout << "Pointer value is: " << *ptr << endl;
+}
+
+template <typename T>
+void printPtrAddress(T* ptr)
+{
+	cout << "Pointer address is: " << ptr << endl;
+}
+
+int main()
+{
+	int *ptr;
+	cout << "printing uninitialized ptr: " << &ptr << endl;
+	// below commented line will throw error as ptr is not initialized
+	// cout << "value of ptr: " << *ptr << endl;
+	int a = 10;
+	ptr = &a;
+	printPtrValue(ptr);
+	printPtrAddress(ptr);
+
+	//incrementing value by 1
+	*ptr = *ptr + 1;
+	printPtrValue(ptr);
+	
+	float b = 12.20;
+	// below line will throw error as float pointer can't assignt to integer(another datatype)
+	// ptr = &b;
+	
+	int c = 20;
+	// now ptr is pointing to address of c
+	ptr = &c;
+	printPtrValue(ptr);
+	printPtrAddress(ptr);
+
+	// below *ptr++ is like *(ptr++), so below statement would not give incremented value.
+	cout << "Value of next element " << *ptr++ << endl;
+
+	// below line will show some garbage value as that incremented address is un-intialized.
+	printPtrValue(ptr);
+	printPtrAddress(ptr);
+
+	//*ptr++ issue can be solved by (*ptr)++
+	ptr = &c;
+	(*ptr)++;
+	printPtrValue(ptr);
+	printPtrAddress(ptr);
+
+	int* q = &a;
+	// beow line is equivalant to *p=*q; ++p; ++q;
+	*ptr++ = *q++;
+	// below two lines will show some garbage value as that incremented address is un-intialized.
+	printPtrValue(ptr);
+	printPtrValue(q);
+
+	//write a program to print string using pointers
+	string name = "Unnamed";
+	string* sPtr = &name;
+	printPtrValue(sPtr);
+	printPtrAddress(sPtr);
+
+	// all types of pointers has same size on same platform
+	cout << sizeof(sPtr) << endl;
+	cout << sizeof(ptr) << endl;
+
+	// pointers and array
+	int array[] = { 1,2,3,4,5 };
+	int arraySize = sizeof(array) / sizeof(array[0]);
+	int* arrayPtr = NULL;
+	arrayPtr = &array[0]; // valid -> arrayPtr = array;
+
+	// print array pointer
+	for (int i = 0; i < arraySize; i++)
+	{
+		printPtrValue(arrayPtr);
+		printPtrAddress(arrayPtr);
+		arrayPtr++;
+
+		// array is always passed to function by address – address is address of zero element , so array and &array[0] both are same
+		printPtrValue(&array[0]);
+	}
+
+	// **** string pointer ****
+
+	string result = "I am an AI";
+	// here string is pointed as single elemnt , not like a array
+	string *strPtr = &result;
+	printPtrValue(strPtr);
+
+	if (*strPtr == result)
+		cout << "match found" << endl;
+
+	string students[] = { "Grey", "Red", "Green" };
+
+	string* studentsPtr[3] = {&students[0], &students[1], &students[2]};
+
+	for (int i = 0; i < 3; i++)
+	{
+		printPtrValue(studentsPtr[i]);
+	}
+
+	// pointer to 2d array
+
+	int arr1[] = { 1,2,3,4,5,6,7 };
+	int arr2[] = { 4,5,6,7,8 };
+	int arr3[] = { 45,5,7 };
+	int* twodPtr[] = {arr1,arr2,arr3};
+	for (int i = 0; i < 3; i++)
+	{
+		printPtrValue(twodPtr[i]);
+		int* arrPtr = twodPtr[i];
+
+		// access whole 1d array, j<7 need to fix
+		for (int j = 0; j < 7; j++)
+		{
+			printPtrValue(arrPtr);
+			arrPtr++;
+		}
+	}
+}
