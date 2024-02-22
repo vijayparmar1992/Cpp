@@ -1,0 +1,87 @@
+/*
+weak_ptr:
+Consider there are three classes: A, B, and C. Class A and B have an instance of C, while C
+has an instance of A and B. There is a design issue here. A depends on C and C depends on
+A too. Similarly, B depends on C and C depends on B as well.
+*/
+
+#include<iostream>
+
+using namespace std;
+
+class C;
+
+class A {
+	shared_ptr<C>ptrA; // use weak_ptr<C>ptrA; to avoid circular dependancy
+public:
+	A()
+	{
+		cout << "Constructor of A" << endl;
+	}
+	~A()
+	{
+		cout << "Destructor of A" << endl;
+	}
+
+	void setObject(shared_ptr<C> ptrNew)
+	{
+		this->ptrA = ptrNew;
+	}
+};
+
+class B {
+	shared_ptr<C>ptrB; // use weak_ptr<C>ptrB; to avoid circular dependancy
+public:
+	B()
+	{
+		cout << "Constructor of B" << endl;
+	}
+	~B()
+	{
+		cout << "Destructor of B" << endl;
+	}
+
+	void setObject(shared_ptr<C> ptrNew)
+	{
+		ptrB = ptrNew;
+	}
+};
+
+
+class C {
+	shared_ptr<A> ptrOfA;
+	shared_ptr<B> ptrOfB;
+public:
+	C(shared_ptr<A>ptrA, shared_ptr<B>ptrB)
+	{
+		ptrOfA = ptrA;
+		ptrOfB = ptrB;
+		cout << "Constructor of C" << endl;
+	}
+	~C()
+	{
+		cout << "Destructor of C" << endl;
+	}
+
+
+};
+
+int main()
+{
+	shared_ptr<A> ptr1 (new A());
+	shared_ptr<B> ptr2(new B());
+	shared_ptr<C> ptr3(new C(ptr1, ptr2));
+	ptr1->setObject(ptr3);
+	ptr2->setObject(ptr3);
+	cout<<ptr1.use_count(); // 2 ref counter
+	cout << ptr2.use_count(); // 2 ref counter
+	cout << ptr3.use_count(); // 3 ref counter
+	/*
+	* object A can't
+	* be deleted unless object C is deleted. Object C can't be deleted unless object A is deleted.
+	* Also, object C can't be deleted unless objects A and B are deleted. Similarly, object A can't be
+	* deleted unless object C is deleted and object B can't be deleted unless object C is deleted.
+	*/
+
+	return 0; // no destructor call call due to above reason, hence required to use weak_pointer to avoid circular dependancy
+}
