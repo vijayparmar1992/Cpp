@@ -1,0 +1,68 @@
+/*
+unique_ptr:
+When ownership of resource is required. When we want single or exclusive ownership of a resource,
+then we should go for unique pointers. Only one unique pointer can point to one resource.
+So, one unique pointer cannot be copied to another. 
+*/
+
+/*
+The unique_ptr smart pointer works in exactly the same way as auto_ptr, except that
+unique_ptr addresses the issues introduced by auto_ptr. Hence, unique_ptr is a
+replacement of auto_ptr, starting from C++11.
+The unique_ptr smart pointer allows only
+one smart pointer to exclusively own a heap-allocated object. The ownership transfer from
+one unique_ptr instance to another can be done only via the std::move() function.
+*/
+
+#include<iostream>
+#include<exception>
+#include<vector>
+using namespace std;
+
+class Student
+{
+	string name;
+
+public:
+	Student(string n)
+	{
+		name = n;
+		cout << "constructor" << " from "<< name << endl;
+	}
+
+	void sayHello()
+	{
+		cout << "Hello "<< " from "<< name << endl;
+	}
+	~Student()
+	{
+		cout << "de-structor" << " from " << name << endl;
+	}
+};
+
+int main()
+{
+	unique_ptr<Student> ptr1(new Student("class of ptr1"));
+	unique_ptr<Student> ptr2(new Student("class of ptr2"));
+
+	ptr1->sayHello();
+	ptr2->sayHello();
+
+	// Below 2 lines will give compile time error, becuase only one unique_ptr pointer can point to one resource
+	// unique_ptr<Student> ptr3 = ptr2;
+	// ptr1 = ptr2;
+
+	ptr1 = std::move(ptr2);
+	cout << "Above statement has called destructor for object pointed by ptr1" << endl;
+
+	// ptr2->sayHello(); // will result in core dump
+
+	ptr1->sayHello();
+
+	// unique_ptr objects could be stored in STL containers, unlike auto_ptr objects
+
+	vector<unique_ptr<Student>> student;
+	student.push_back(std::make_unique<Student>("A"));
+	
+	return 0; // destructor get call here
+}
