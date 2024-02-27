@@ -7,8 +7,6 @@ using namespace std;
 
 int main(){
 
-  cout << boolalpha << endl;
-
   cout << "hardware_concurrency()= "<< thread::hardware_concurrency() << endl;
 
   thread t1([]{cout << "t1 with id= " << this_thread::get_id() << endl;});
