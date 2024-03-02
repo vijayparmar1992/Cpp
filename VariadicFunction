@@ -1,0 +1,28 @@
+#include <iostream>
+#include <cstdarg>
+
+// Function to calculate the sum of a variable number of integers
+int sumOfNumbers(int count, ...) {
+    int sum = 0;
+
+    va_list args;  // Declare a variable of type va_list to hold the arguments
+    va_start(args, count);  // Initialize the va_list
+
+    for (int i = 0; i < count; ++i) {
+        // Access each argument using va_arg and add it to the sum
+        sum += va_arg(args, int);
+    }
+
+    va_end(args);  // Clean up the va_list
+
+    return sum;
+}
+
+int main() {
+    // Example usage of the sumOfNumbers function with different numbers of arguments
+    std::cout << "Sum of 3, 5, and 7: " << sumOfNumbers(3, 3, 5, 7) << std::endl;
+    std::cout << "Sum of 1, 2, 3, 4, and 5: " << sumOfNumbers(5, 1, 2, 3, 4, 5) << std::endl;
+    std::cout << "Sum of 10 and 20: " << sumOfNumbers(2, 10, 20) << std::endl;
+
+    return 0;
+}
