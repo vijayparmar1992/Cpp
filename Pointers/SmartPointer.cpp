@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
  class SmartPointer
  {
  private:
@@ -15,10 +17,13 @@
 		 return *ptr;
 	 }
 
+	 SmartPointer(const SmartPointer&) = delete;
+         SmartPointer& operator=(const SmartPointer&) = delete;
+
 	 ~SmartPointer()
 	 {
 		 cout << "In Dtor" << endl;
-		 //delete ptr;
+		 delete ptr;
 	 }
 
 
