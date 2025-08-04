@@ -4,8 +4,9 @@ using namespace std;
 
 // Base class
 class Index {
+protected:
+	int count;
 public:
-	int count;	
 	Index()
 	{
 		count = 0;
