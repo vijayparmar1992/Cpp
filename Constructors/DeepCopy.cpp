@@ -2,9 +2,6 @@
 
 using namespace std;
 
-// Add move operations
-// Use unique pointer
-
 class Test
 {
 public:
@@ -50,8 +47,6 @@ public:
 		}
 		return *this;
 	}
-
-
 
 	// Deep copy
 	Test& operator =(const Test& t)
